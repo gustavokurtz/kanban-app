@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kanban Diário de Tarefas
 
-## Getting Started
+Um aplicativo Kanban moderno e intuitivo para gerenciar suas tarefas diárias, com reset automático todas as manhãs.
 
-First, run the development server:
+![Screenshot do aplicativo Kanban](/fotoapp.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Visão Geral
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O Kanban Diário de Tarefas é uma aplicação web desenvolvida com React e Next.js que permite organizar suas tarefas diárias em um formato visual de quadro Kanban. A aplicação foi projetada especificamente para o gerenciamento diário de tarefas, com uma funcionalidade de reset automático que coloca todas as tarefas de volta na coluna "A Fazer" às 6h da manhã a cada dia.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Recursos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Interface moderna**: Design elegante com efeitos de vidro (glassmorphism) e gradientes
+- **Três colunas Kanban**: "A Fazer", "Em Andamento" e "Concluído"
+- **Drag and Drop**: Arraste tarefas facilmente entre as colunas
+- **Tarefas padrão**: Conjunto inicial de tarefas para ajudar a estruturar seu dia
+- **Persistência de dados**: Suas tarefas são salvas no localStorage do navegador
+- **Reset automático diário**: Todas as tarefas voltam para "A Fazer" às 6h da manhã
+- **Reset manual**: Botão para restaurar o quadro ao estado inicial quando desejar
+- **Notificações toast**: Feedback visual para todas as ações
+- **Design responsivo**: Funciona perfeitamente em dispositivos móveis e desktop
 
-## Learn More
+## Tecnologias
 
-To learn more about Next.js, take a look at the following resources:
+- React.js
+- Next.js
+- Tailwind CSS
+- TypeScript
+- Shadcn UI Components
+- Lucide React (ícones)
+- Sonner (notificações toast)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estrutura do Código
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Componentes Principais
 
-## Deploy on Vercel
+- **Home**: Componente principal que gerencia o estado e a lógica da aplicação
+- **KanbanColumn**: Componente para renderizar cada coluna do quadro Kanban
+- **TaskCard**: Componente para renderizar cada cartão de tarefa
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Tipos e Interfaces
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Task**: Define a estrutura de uma tarefa (id, título, intervalo de tempo, coluna, data de criação)
+- **ColumnType**: Define os tipos de coluna ('todo', 'doing', 'done')
+- **ColumnData**: Define a estrutura e propriedades de uma coluna
+
+### Funções Principais
+
+- **getTasksByColumn**: Filtra tarefas por coluna
+- **resetTasks**: Restaura o quadro para o estado inicial
+- **handleDrop**: Gerencia a movimentação de tarefas entre colunas
+- **handleAddTask**: Adiciona novas tarefas
+- **handleRemoveTask**: Remove tarefas ou move tarefas padrão de volta para "A Fazer"
+- **checkAndResetTasks**: Verifica periodicamente se é hora de resetar as tarefas
+
+## Lógica de Reset Diário
+
+A aplicação verifica se é necessário resetar as tarefas nas seguintes situações:
+
+1. Quando o aplicativo é carregado pela primeira vez
+2. A cada minuto, por meio de um intervalo programado
+3. Manualmente quando o botão "Restaurar Tarefas" é clicado
+
+O reset automático ocorre quando:
+- É um novo dia em relação ao último reset
+- A hora atual é 6h da manhã ou posterior
+
+## Comportamento Especial das Tarefas Padrão
+
+As tarefas padrão (as 3 tarefas pré-definidas) têm um comportamento especial:
+
+- Não podem ser removidas da coluna "A Fazer"
+- Se movidas para outras colunas, podem ser "removidas", o que as move de volta para "A Fazer"
+- São sempre restauradas durante o reset diário
+
+## Como Usar
+
+1. A aplicação carrega com três tarefas padrão na coluna "A Fazer"
+2. Arraste as tarefas entre as colunas conforme você trabalha nelas
+3. Adicione novas tarefas em qualquer coluna usando o campo de texto na parte inferior
+4. Remova tarefas clicando no ícone "X" no canto superior direito do cartão
+5. Use o botão "Restaurar Tarefas" para reiniciar o quadro manualmente
+6. Todas as manhãs, às 6h, o quadro será reiniciado automaticamente
+
+## Possíveis Melhorias Futuras
+
+- Implementação de um calendário para navegar entre dias diferentes
+- Configuração personalizada do horário de reset
+- Categorias de tarefas com cores diferentes
+- Estimativas de tempo para as tarefas
+- Estatísticas e métricas de produtividade
+- Sincronização com serviços de nuvem
+
+## Licença
+
+[MIT](LICENSE)
+
+---
+
+Desenvolvido com ❤️ para aumentar a produtividade diária.
