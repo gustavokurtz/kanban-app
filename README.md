@@ -91,10 +91,4 @@ As tarefas padrão (as 3 tarefas pré-definidas) têm um comportamento especial:
 - Estatísticas e métricas de produtividade
 - Sincronização com serviços de nuvem
 
-## Licença
-
-[MIT](LICENSE)
-
----
-
 Desenvolvido com ❤️ para aumentar a produtividade diária.
